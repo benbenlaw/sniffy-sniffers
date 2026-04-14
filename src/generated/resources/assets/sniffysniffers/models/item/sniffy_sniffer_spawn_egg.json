@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "sniffysniffers:item/sniffy_sniffer_spawn_egg"
+  }
+}

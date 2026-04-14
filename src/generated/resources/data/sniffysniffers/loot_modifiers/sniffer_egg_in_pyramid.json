@@ -1,0 +1,14 @@
+{
+  "type": "sniffysniffers:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:archaeology/desert_pyramid"
+    },
+    {
+      "chance": 0.25,
+      "condition": "minecraft:random_chance"
+    }
+  ],
+  "item": "sniffysniffers:sniffy_sniffer_egg"
+}
