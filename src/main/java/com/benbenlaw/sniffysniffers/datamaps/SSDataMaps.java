@@ -14,6 +14,4 @@ public class SSDataMaps {
     public static final DataMapType<Block, Identifier> SNIFFER_BLOCK_LOOTTABLE = DataMapType.builder(
             SniffySniffers.identifier("sniffer_block_loottable"), Registries.BLOCK, Identifier.CODEC)
             .synced(Identifier.CODEC, true).build();
-
-
 }

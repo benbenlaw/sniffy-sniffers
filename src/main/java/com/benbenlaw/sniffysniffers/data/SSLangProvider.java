@@ -24,6 +24,9 @@ public class SSLangProvider extends LanguageProvider {
         //Entity
         add("entity.sniffysniffers.sniffy_sniffer", "Sniffy Sniffer");
 
+        //Jei
+        add("jei.sniffysniffers.recipe_category", "Sniffy Sniffer will dig...");
+
     }
 
     @Override
