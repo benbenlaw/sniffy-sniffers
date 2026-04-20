@@ -1,4 +1,3 @@
-// 26.1.2	2026-04-14T10:18:52.7564226	Global Loot Modifiers : sniffysniffers
-59eda714894ebdedc9f9402452897a99816bdf64 data/neoforge/loot_modifiers/global_loot_modifiers.json
-896f5c2d9900e3bf95c349ea933c27ae866d9e40 data/sniffysniffers/loot_modifiers/sniffer_egg_in_pyramid.json
-fc8653c2adc2feaa3faaac4b590542b597b0fe5f data/sniffysniffers/loot_modifiers/sniffer_egg_in_well.json
+// 26.1.2	2026-04-20T17:28:33.3270169	Global Loot Modifiers : sniffysniffers
+e12c1a28275d9782c1f7e0edeafbe1d4b48d5798 data/sniffysniffers/loot_modifiers/sniffer_egg_in_pyramid.json
+b3fdfe61311cde6561b1d71d672469c344ecc401 data/sniffysniffers/loot_modifiers/sniffer_egg_in_well.json

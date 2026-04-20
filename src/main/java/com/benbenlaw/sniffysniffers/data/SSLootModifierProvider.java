@@ -29,16 +29,16 @@ public class SSLootModifierProvider extends GlobalLootModifierProvider {
         add("sniffer_egg_in_pyramid", new AddItemModifier(
                 new LootItemCondition[] {
                         new LootTableIdCondition.Builder(Identifier.withDefaultNamespace("archaeology/desert_pyramid")).build(),
-                        LootItemRandomChanceCondition.randomChance(0.25f).build()
+                        LootItemRandomChanceCondition.randomChance(0.45f).build()
                 },
-                SSBlocks.SNIFFY_SNIFFER_EGG.get().asItem()));
+                1001, SSBlocks.SNIFFY_SNIFFER_EGG.get().asItem()));
 
         add("sniffer_egg_in_well", new AddItemModifier(
                 new LootItemCondition[] {
                         new LootTableIdCondition.Builder(Identifier.withDefaultNamespace("archaeology/desert_well")).build(),
-                        LootItemRandomChanceCondition.randomChance(0.25f).build()
+                        LootItemRandomChanceCondition.randomChance(0.45f).build()
                 },
-                SSBlocks.SNIFFY_SNIFFER_EGG.get().asItem()));
+                1001, SSBlocks.SNIFFY_SNIFFER_EGG.get().asItem()));
     }
 }
 

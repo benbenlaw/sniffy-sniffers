@@ -6,9 +6,10 @@
       "loot_table_id": "minecraft:archaeology/desert_pyramid"
     },
     {
-      "chance": 0.25,
+      "chance": 0.45,
       "condition": "minecraft:random_chance"
     }
   ],
-  "item": "sniffysniffers:sniffy_sniffer_egg"
+  "item": "sniffysniffers:sniffy_sniffer_egg",
+  "priority": 1001
 }

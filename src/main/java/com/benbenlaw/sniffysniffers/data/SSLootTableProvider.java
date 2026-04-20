@@ -22,15 +22,11 @@ public class SSLootTableProvider extends VanillaBlockLoot {
     }
     @Override
     protected void generate() {
-
-        //this.dropSelf(SSBlocks.SNIFFY_SNIFFER_EGG.get());
-
-
+        this.dropSelf(SSBlocks.SNIFFY_SNIFFER_EGG.get());
     }
 
     @Override
     protected void add(@NotNull Block block, @NotNull LootTable.Builder table) {
-        //Overwrite the core register method to add to our list of known blocks
         super.add(block, table);
         knownBlocks.add(block);
     }
