@@ -1,20 +1,16 @@
 package com.benbenlaw.sniffysniffers.integration.jei;
 
 import com.benbenlaw.sniffysniffers.SniffySniffers;
-import com.benbenlaw.sniffysniffers.data.SSDataMapsProvider;
-import com.benbenlaw.sniffysniffers.datamaps.SSDataMaps;
+import com.benbenlaw.sniffysniffers.core.ChanceResult;
+import com.benbenlaw.sniffysniffers.event.ClientLootCache;
 import com.benbenlaw.sniffysniffers.item.SSItems;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.DataMapProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -44,18 +40,12 @@ public class JEISSPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         List<SSRecipe> recipes = new ArrayList<>();
 
-        assert Minecraft.getInstance().level != null;
-        var blockRegistry = Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.BLOCK);
-        var dataMap = blockRegistry.getDataMap(SSDataMaps.SNIFFER_BLOCK_LOOTTABLE);
+        ClientLootCache.getCachedRecipes().forEach((block, results) -> {
+            recipes.add(new SSRecipe(block, results));
+        });
 
-        if (dataMap != null) {
-
-            dataMap.forEach((holder, info) -> {
-                Block block = blockRegistry.getValue(holder);
-                recipes.add(new SSRecipe(block, info));
-            });
-
+        if (!recipes.isEmpty()) {
+            registration.addRecipes(SSRecipeCategory.RECIPE_TYPE, recipes);
         }
-        registration.addRecipes(SSRecipeCategory.RECIPE_TYPE, recipes);
     }
 }

@@ -5,6 +5,7 @@
     "minecraft:diamond_ore": "minecraft:blocks/diamond_ore",
     "minecraft:emerald_ore": "minecraft:blocks/emerald_ore",
     "minecraft:gold_ore": "minecraft:blocks/gold_ore",
+    "minecraft:gravel": "minecraft:blocks/gravel",
     "minecraft:iron_ore": "minecraft:blocks/iron_ore",
     "minecraft:nether_quartz_ore": "minecraft:blocks/nether_quartz_ore",
     "minecraft:redstone_ore": "minecraft:blocks/redstone_ore",

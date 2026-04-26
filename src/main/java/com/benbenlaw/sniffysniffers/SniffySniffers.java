@@ -10,6 +10,7 @@ import com.benbenlaw.sniffysniffers.entity.client.SniffySnifferRenderer;
 import com.benbenlaw.sniffysniffers.item.SSCreativeTab;
 import com.benbenlaw.sniffysniffers.item.SSItems;
 import com.benbenlaw.sniffysniffers.loot.SSLootModifiers;
+import com.benbenlaw.sniffysniffers.network.SSNetworking;
 import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -49,10 +50,6 @@ public class SniffySniffers {
         modEventBus.addListener(SniffySniffers::registerAttributes);
     }
 
-    public void commonSetup(RegisterPayloadHandlersEvent event) {
-
-    }
-
     @EventBusSubscriber(modid = SniffySniffers.MOD_ID, value = Dist.CLIENT)
     public static class ClientModEvents {
 
@@ -70,6 +67,10 @@ public class SniffySniffers {
 
     public void registerDataMaps(RegisterDataMapTypesEvent event) {
         event.register(SSDataMaps.SNIFFER_BLOCK_LOOTTABLE);
+    }
+
+    public void commonSetup(RegisterPayloadHandlersEvent event) {
+        SSNetworking.registerNetworking(event);
     }
 
     public static Identifier identifier(String path) {

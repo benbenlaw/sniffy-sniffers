@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "package": "com.benbenlaw.sniffysniffers.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AccessorLootPoolEntryContainer",
+    "AccessorMixinCompositeEntryBase",
+    "AccessorMixinLootItem",
+    "AccessorMixinLootPool",
+    "AccessorMixinLootPoolSingletonContainer",
+    "AccessorMixinLootTable",
+    "AccessorMixinNestedLootTable",
+    "AccessorMixinTagEntry"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+
+}
