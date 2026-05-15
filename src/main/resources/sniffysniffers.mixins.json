@@ -1,16 +1,8 @@
 {
   "required": true,
-  "package": "com.benbenlaw.sniffysniffers.mixin",
+  "package": "com.benbenlaw.sniffysniffers",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "AccessorLootPoolEntryContainer",
-    "AccessorMixinCompositeEntryBase",
-    "AccessorMixinLootItem",
-    "AccessorMixinLootPool",
-    "AccessorMixinLootPoolSingletonContainer",
-    "AccessorMixinLootTable",
-    "AccessorMixinNestedLootTable",
-    "AccessorMixinTagEntry"
   ],
   "client": [
   ],

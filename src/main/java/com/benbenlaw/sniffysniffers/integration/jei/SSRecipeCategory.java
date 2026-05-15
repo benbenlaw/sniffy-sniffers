@@ -6,12 +6,17 @@ import com.benbenlaw.sniffysniffers.item.SSItems;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotDrawablesView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
+import mezz.jei.api.gui.widgets.IScrollGridWidget;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -20,12 +25,14 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class SSRecipeCategory implements IRecipeCategory<SSRecipe> {
 
     public static final Identifier TEXTURE = SniffySniffers.identifier("textures/gui/sniffy_sniffer_jei.png");
     public static final IRecipeType<SSRecipe> RECIPE_TYPE = IRecipeType.create(SniffySniffers.identifier("sniffy_sniffer"), SSRecipe.class);
 
-    private final int width = 84;
+    private final int width = 101;
     private final int height = 20;
     private final IDrawable icon;
 
@@ -60,27 +67,43 @@ public class SSRecipeCategory implements IRecipeCategory<SSRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SSRecipe recipe, IFocusGroup focuses) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 2, 2).add(new ItemStack(recipe.block().asItem()));
+        int centerX = 48;
+        int centerY = 2;
+        int slotWidth = 18;
 
-        int xOffset = 48;
-        int yOffset = 2;
+        builder.addSlot(RecipeIngredientRole.INPUT, 1, 2).add(new ItemStack(recipe.block())).setBackground(JEISSPlugin.slotDrawable, -1, -1);
 
-        for (ChanceResult result : recipe.outputs()) {
-            builder.addSlot(RecipeIngredientRole.OUTPUT, xOffset, yOffset)
-                    .add(result.template().create())
-                    .addRichTooltipCallback((recipeSlotView, tooltip) -> {
-                        float percentage = result.chance() * 100;
-                        tooltip.add(Component.literal(String.format("%.1f%%", percentage))
-                                .withStyle(net.minecraft.ChatFormatting.GOLD));
-                    });
+        List<ChanceResult> chanceResults = recipe.outputs();
+        int totalResults = chanceResults.size();
 
-            xOffset += 18;
+        for (int i = 0; i < totalResults; i++) {
+            int displayIndex = Math.min(i, 2);
+            int xPos = centerX + (displayIndex * slotWidth);
 
-            if (xOffset > width - 18) {
-                break;
-            }
+            final int finalIndex = i;
+
+            builder.addSlot(RecipeIngredientRole.OUTPUT, xPos, centerY)
+                    .add(chanceResults.get(i).template().create()).addRichTooltipCallback((slotView, tooltip) -> {
+                        ChanceResult output = chanceResults.get(finalIndex);
+                        float chance = output.chance();
+                        int displayChance = (int) (chance * 100);
+                        tooltip.add(Component.translatable("jei.sniffysniffers.chance", displayChance).withStyle(ChatFormatting.GOLD));
+                    }).setBackground(JEISSPlugin.slotDrawable, -1, -1);
         }
     }
+
+    @Override
+    public void createRecipeExtras(IRecipeExtrasBuilder builder, SSRecipe recipe, IFocusGroup focuses) {
+        IRecipeSlotDrawablesView recipeSlots = builder.getRecipeSlots();
+        List<IRecipeSlotDrawable> results = recipeSlots.getSlots(RecipeIngredientRole.OUTPUT);
+
+        if (results.size() > 3) {
+            IScrollGridWidget triggersGrid = builder.addScrollGridWidget(results, 2, 1);
+            triggersGrid.setPosition(47, 1);
+        }
+        builder.addAnimatedRecipeArrow(200).setPosition(21, 2);
+    }
+
 
     public void draw(SSRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, 0, 0, 0, 0, width, height, width, height);

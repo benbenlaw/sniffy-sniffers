@@ -1,11 +1,11 @@
 package com.benbenlaw.sniffysniffers.integration.jei;
 
 import com.benbenlaw.sniffysniffers.SniffySniffers;
-import com.benbenlaw.sniffysniffers.core.ChanceResult;
 import com.benbenlaw.sniffysniffers.event.ClientLootCache;
 import com.benbenlaw.sniffysniffers.item.SSItems;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -18,6 +18,8 @@ import java.util.List;
 
 @JeiPlugin
 public class JEISSPlugin implements IModPlugin {
+
+    public static IDrawableStatic slotDrawable;
 
     @Override
     public @NotNull Identifier getPluginUid() {
@@ -32,8 +34,9 @@ public class JEISSPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
-        registration.addRecipeCategories(new SSRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        slotDrawable = registration.getJeiHelpers().getGuiHelper().getSlotDrawable();
 
+        registration.addRecipeCategories(new SSRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override

@@ -2,14 +2,10 @@ package com.benbenlaw.sniffysniffers.data;
 
 import com.benbenlaw.sniffysniffers.SniffySniffers;
 import com.benbenlaw.sniffysniffers.block.SSBlocks;
-import com.benbenlaw.sniffysniffers.item.SSItems;
 import com.benbenlaw.sniffysniffers.loot.AddItemModifier;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;

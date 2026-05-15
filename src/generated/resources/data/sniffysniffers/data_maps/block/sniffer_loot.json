@@ -1,0 +1,137 @@
+{
+  "values": {
+    "minecraft:ancient_debris": [
+      {
+        "chance": 0.01,
+        "item": {
+          "id": "minecraft:ancient_debris"
+        }
+      },
+      {
+        "chance": 0.75,
+        "item": {
+          "id": "minecraft:nether_brick"
+        }
+      }
+    ],
+    "minecraft:coal_ore": [
+      {
+        "chance": 0.5,
+        "item": {
+          "id": "minecraft:coal"
+        }
+      },
+      {
+        "chance": 0.75,
+        "item": {
+          "id": "minecraft:cobblestone"
+        }
+      }
+    ],
+    "minecraft:diamond_ore": [
+      {
+        "chance": 0.5,
+        "item": {
+          "id": "minecraft:diamond"
+        }
+      },
+      {
+        "chance": 0.75,
+        "item": {
+          "id": "minecraft:cobblestone"
+        }
+      }
+    ],
+    "minecraft:emerald_ore": [
+      {
+        "chance": 0.5,
+        "item": {
+          "id": "minecraft:emerald"
+        }
+      },
+      {
+        "chance": 0.75,
+        "item": {
+          "id": "minecraft:cobblestone"
+        }
+      }
+    ],
+    "minecraft:gold_ore": [
+      {
+        "chance": 0.5,
+        "item": {
+          "id": "minecraft:raw_gold"
+        }
+      },
+      {
+        "chance": 0.75,
+        "item": {
+          "id": "minecraft:cobblestone"
+        }
+      }
+    ],
+    "minecraft:gravel": [
+      {
+        "chance": 0.8,
+        "item": {
+          "id": "minecraft:gravel"
+        }
+      },
+      {
+        "chance": 0.2,
+        "item": {
+          "id": "minecraft:flint"
+        }
+      }
+    ],
+    "minecraft:iron_ore": [
+      {
+        "chance": 0.5,
+        "item": {
+          "id": "minecraft:raw_iron"
+        }
+      },
+      {
+        "chance": 0.75,
+        "item": {
+          "id": "minecraft:cobblestone"
+        }
+      }
+    ],
+    "minecraft:nether_quartz_ore": [
+      {
+        "chance": 0.5,
+        "item": {
+          "id": "minecraft:quartz"
+        }
+      },
+      {
+        "chance": 0.75,
+        "item": {
+          "id": "minecraft:nether_brick"
+        }
+      }
+    ],
+    "minecraft:redstone_ore": [
+      {
+        "chance": 0.5,
+        "item": {
+          "id": "minecraft:redstone"
+        }
+      },
+      {
+        "chance": 0.75,
+        "item": {
+          "id": "minecraft:cobblestone"
+        }
+      }
+    ],
+    "minecraft:stone": [
+      {
+        "item": {
+          "id": "minecraft:cobblestone"
+        }
+      }
+    ]
+  }
+}

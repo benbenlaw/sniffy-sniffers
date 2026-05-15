@@ -1,18 +1,17 @@
 package com.benbenlaw.sniffysniffers.data;
 
-import com.benbenlaw.sniffysniffers.SniffySniffers;
+import com.benbenlaw.sniffysniffers.core.ChanceResult;
 import com.benbenlaw.sniffysniffers.datamaps.SSDataMaps;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class SSDataMapsProvider extends DataMapProvider {
@@ -21,25 +20,29 @@ public class SSDataMapsProvider extends DataMapProvider {
         super(output, providerCompletableFuture);
     }
 
-
     @Override
     protected void gather(HolderLookup.Provider provider) {
-        addBlockLootTable(Blocks.STONE, Identifier.withDefaultNamespace("blocks/stone"));
-        addBlockLootTable(Blocks.GRAVEL, Identifier.withDefaultNamespace("blocks/gravel"));
-        addBlockLootTable(Blocks.DIAMOND_ORE, Identifier.withDefaultNamespace("blocks/diamond_ore"));
-        addBlockLootTable(Blocks.EMERALD_ORE, Identifier.withDefaultNamespace("blocks/emerald_ore"));
-        addBlockLootTable(Blocks.IRON_ORE, Identifier.withDefaultNamespace("blocks/iron_ore"));
-        addBlockLootTable(Blocks.GOLD_ORE, Identifier.withDefaultNamespace("blocks/gold_ore"));
-        addBlockLootTable(Blocks.COAL_ORE, Identifier.withDefaultNamespace("blocks/coal_ore"));
-        addBlockLootTable(Blocks.REDSTONE_ORE, Identifier.withDefaultNamespace("blocks/redstone_ore"));
-        addBlockLootTable(Blocks.NETHER_QUARTZ_ORE, Identifier.withDefaultNamespace("blocks/nether_quartz_ore"));
-        addBlockLootTable(Blocks.ANCIENT_DEBRIS, Identifier.withDefaultNamespace("blocks/ancient_debris"));
+        addBlockLootTable(Blocks.STONE, chanceResult(Blocks.COBBLESTONE, 1.0f));
+        addBlockLootTable(Blocks.GRAVEL, chanceResult(Blocks.GRAVEL, 0.8f), chanceResult(Items.FLINT, 0.2f));
+        addBlockLootTable(Blocks.DIAMOND_ORE, chanceResult(Items.DIAMOND, 0.5f), chanceResult(Items.COBBLESTONE, 0.75f));
+        addBlockLootTable(Blocks.EMERALD_ORE, chanceResult(Items.EMERALD, 0.5f), chanceResult(Items.COBBLESTONE, 0.75f));
+        addBlockLootTable(Blocks.IRON_ORE, chanceResult(Items.RAW_IRON, 0.5f), chanceResult(Items.COBBLESTONE, 0.75f));
+        addBlockLootTable(Blocks.GOLD_ORE, chanceResult(Items.RAW_GOLD, 0.5f), chanceResult(Items.COBBLESTONE, 0.75f));
+        addBlockLootTable(Blocks.COAL_ORE, chanceResult(Items.COAL, 0.5f), chanceResult(Items.COBBLESTONE, 0.75f));
+        addBlockLootTable(Blocks.REDSTONE_ORE, chanceResult(Items.REDSTONE, 0.5f), chanceResult(Items.COBBLESTONE, 0.75f));
+        addBlockLootTable(Blocks.NETHER_QUARTZ_ORE, chanceResult(Items.QUARTZ, 0.5f), chanceResult(Items.NETHER_BRICK, 0.75f));
+        addBlockLootTable(Blocks.ANCIENT_DEBRIS, chanceResult(Items.ANCIENT_DEBRIS, 0.01f), chanceResult(Items.NETHER_BRICK, 0.75f));
     }
 
-    public void addBlockLootTable(Block block, Identifier lootTableId) {
-        builder(SSDataMaps.SNIFFER_BLOCK_LOOTTABLE)
-                .add(block.defaultBlockState().typeHolder(), lootTableId, false);
+    public void addBlockLootTable(Block block, ChanceResult... results) {
+        builder(SSDataMaps.SNIFFER_LOOT)
+                .add(block.defaultBlockState().typeHolder(), List.of(results), false);
     }
+
+    public ChanceResult chanceResult(ItemLike item, float chance) {
+        return new ChanceResult(new ItemStackTemplate(item.asItem()), chance);
+    }
+
 
 
 }

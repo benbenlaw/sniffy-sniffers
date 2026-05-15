@@ -76,6 +76,8 @@ dependencies {
 
     //JEI
     implementation("mezz.jei:jei-${jei_mc_version}-neoforge:${jei_version}")
+    //Advanced Loot Info
+    implementation("curse.maven:advanced-loot-info-1205426:8006703")
 }
 
 tasks.withType(ProcessResources).configureEach {

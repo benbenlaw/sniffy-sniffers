@@ -2,7 +2,6 @@ package com.benbenlaw.sniffysniffers.item;
 
 import com.benbenlaw.sniffysniffers.SniffySniffers;
 import com.benbenlaw.sniffysniffers.entity.SSEntities;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;

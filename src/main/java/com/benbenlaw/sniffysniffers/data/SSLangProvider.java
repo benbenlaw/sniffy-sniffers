@@ -26,7 +26,7 @@ public class SSLangProvider extends LanguageProvider {
 
         //Jei
         add("jei.sniffysniffers.recipe_category", "Sniffy Sniffer will dig...");
-
+        add("jei.sniffysniffers.chance", "Chance: %s%%");
     }
 
     @Override

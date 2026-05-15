@@ -1,8 +1,6 @@
 package com.benbenlaw.sniffysniffers;
 
 import com.benbenlaw.sniffysniffers.block.SSBlocks;
-import com.benbenlaw.sniffysniffers.data.SSLootModifierProvider;
-import com.benbenlaw.sniffysniffers.data.SSLootTableProvider;
 import com.benbenlaw.sniffysniffers.datamaps.SSDataMaps;
 import com.benbenlaw.sniffysniffers.entity.SSEntities;
 import com.benbenlaw.sniffysniffers.entity.SniffySnifferEntity;
@@ -17,9 +15,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
@@ -46,8 +42,8 @@ public class SniffySniffers {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::registerDataMaps);
 
-
         modEventBus.addListener(SniffySniffers::registerAttributes);
+
     }
 
     @EventBusSubscriber(modid = SniffySniffers.MOD_ID, value = Dist.CLIENT)
@@ -66,7 +62,7 @@ public class SniffySniffers {
 
 
     public void registerDataMaps(RegisterDataMapTypesEvent event) {
-        event.register(SSDataMaps.SNIFFER_BLOCK_LOOTTABLE);
+        event.register(SSDataMaps.SNIFFER_LOOT);
     }
 
     public void commonSetup(RegisterPayloadHandlersEvent event) {

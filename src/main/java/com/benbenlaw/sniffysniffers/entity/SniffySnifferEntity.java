@@ -1,26 +1,22 @@
 package com.benbenlaw.sniffysniffers.entity;
 
 import com.benbenlaw.sniffysniffers.block.SSBlocks;
+import com.benbenlaw.sniffysniffers.core.ChanceResult;
 import com.benbenlaw.sniffysniffers.datamaps.SSDataMaps;
-import com.benbenlaw.sniffysniffers.item.SSItems;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.ByIdMap;
@@ -36,29 +32,23 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.pathfinder.PathType;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.*;
 import java.util.function.IntFunction;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class SniffySnifferEntity extends Animal {
@@ -256,7 +246,7 @@ public class SniffySnifferEntity extends Animal {
                     BlockPos target = center.offset(x, y, z);
                     BlockState state = this.level().getBlockState(target);
 
-                    if (state.typeHolder().getData(SSDataMaps.SNIFFER_BLOCK_LOOTTABLE) != null) {
+                    if (state.typeHolder().getData(SSDataMaps.SNIFFER_LOOT) != null) {
                         if (this.getExploredPositions().noneMatch(p -> p.pos().equals(target))) {
                             potentialBlocks.add(target);
                         }
@@ -275,7 +265,7 @@ public class SniffySnifferEntity extends Animal {
     private boolean canDig(BlockPos position) {
         BlockState state = this.level().getBlockState(position);
 
-        boolean hasLootData = state.typeHolder().getData(SSDataMaps.SNIFFER_BLOCK_LOOTTABLE) != null;
+        boolean hasLootData = state.typeHolder().getData(SSDataMaps.SNIFFER_LOOT) != null;
 
         boolean notExplored = this.getExploredPositions().noneMatch((explored) ->
                 GlobalPos.of(this.level().dimension(), position).equals(explored));
@@ -294,14 +284,15 @@ public class SniffySnifferEntity extends Animal {
                 BlockPos dugPos = head.below();
                 BlockState dugState = level.getBlockState(dugPos);
 
-                Identifier lootTableHolder = dugState.typeHolder().getData(SSDataMaps.SNIFFER_BLOCK_LOOTTABLE);
-                ResourceKey<LootTable> tableKey = ResourceKey.create(Registries.LOOT_TABLE, lootTableHolder);
+                List<ChanceResult> chanceResults = dugState.typeHolder().getData(SSDataMaps.SNIFFER_LOOT);
 
-                this.dropFromGiftLootTable(level, tableKey, (l, itemStack) -> {
+                assert chanceResults != null;
+                for (ChanceResult result : chanceResults) {
+                    ItemStack itemStack = result.rollOutput(this.random);
                     ItemEntity entity = new ItemEntity(level, head.getX(), head.getY(), head.getZ(), itemStack);
                     entity.setDefaultPickUpDelay();
-                    l.addFreshEntity(entity);
-                });
+                    level.addFreshEntity(entity);
+                }
 
                 this.playSound(SoundEvents.SNIFFER_DROP_SEED, 1.0F, 1.0F);
             }

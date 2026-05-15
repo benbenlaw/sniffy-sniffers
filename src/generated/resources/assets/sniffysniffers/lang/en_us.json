@@ -3,5 +3,6 @@
   "entity.sniffysniffers.sniffy_sniffer": "Sniffy Sniffer",
   "item.sniffysniffers.sniffy_sniffer_spawn_egg": "Sniffy Sniffer Spawn Egg",
   "itemGroup.sniffysniffers": "Sniffy Sniffers",
+  "jei.sniffysniffers.chance": "Chance: %s%%",
   "jei.sniffysniffers.recipe_category": "Sniffy Sniffer will dig..."
 }
