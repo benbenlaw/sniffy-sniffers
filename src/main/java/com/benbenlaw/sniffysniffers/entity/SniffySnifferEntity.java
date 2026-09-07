@@ -286,7 +286,10 @@ public class SniffySnifferEntity extends Animal {
 
                 List<ChanceResult> chanceResults = dugState.typeHolder().getData(SSDataMaps.SNIFFER_LOOT);
 
-                assert chanceResults != null;
+                if (chanceResults == null || chanceResults.isEmpty()) {
+                    return;
+                }
+
                 for (ChanceResult result : chanceResults) {
                     ItemStack itemStack = result.rollOutput(this.random);
                     ItemEntity entity = new ItemEntity(level, head.getX(), head.getY(), head.getZ(), itemStack);
